@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-import Setting
+import Config
 
 class IdFinding:
     def __init__(self,revui,revdb):
@@ -54,7 +54,7 @@ class IdFinding:
         self.recvPhonenum = self.db.read("userinformation",["phonenum"],[phonenumInput])
 
         if  len(nameInput) == 0 or len(phonenumInput) == 0 or len(self.recvName) == 0 or len(self.recvPhonenum) == 0:
-            self.window = Setting.Setting()
+            self.window = Config.Alert()
             self.window.message.setText("이름과 전화번호를 확인해주세요")
             self.window.result.show()
 

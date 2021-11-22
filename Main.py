@@ -1,12 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import MakeUi
+from MemberInfo import MemberInfo
 import MyDb
 import IdFinding
-import PlayList
+import MemberInfo
 import PwFinding
-import MemberShip
-import Setting
+import SignUp
+import Config
+import PlayListPage
+import Youtube
 
 class Main:
     def __init__(self):
@@ -30,27 +33,27 @@ class Main:
 
     def numberEnterEvent(self, event, index):
         self.ui.idpwFindList[index].setStyleSheet(
-            "background-color: grey;font: 18pt \"맑은 고딕\"; border-image: '';"
+            "background-color: grey;font: 18pt \"맑은 고딕\"; border-image: ''; border: 1px solid black ;"
         )
     def numberEnterEvent1(self, event):
         self.ui.membershipBtn.setStyleSheet(
-            "background-color: grey;font: 18pt \"맑은 고딕\"; border-image: '';"
+            "background-color: grey;font: 18pt \"맑은 고딕\"; border-image: ''; border: 1px solid black ;"
         )
     def numberEnterEvent2(self,event):
         self.ui.loginBtn.setStyleSheet(
-            "font:18pt \"맑은 고딕\"; border-image: ''; background-color: #212121; color:white ;"
+            "font:18pt \"맑은 고딕\"; border-image: ''; background-color: #212121; color:white ; border: 1px solid black ;"
         )
     def numberLeaveEvent(self, event, index):
         self.ui.idpwFindList[index].setStyleSheet(
-            "font: 18pt \"맑은 고딕\"; border-image: '';"
+            "font: 18pt \"맑은 고딕\"; border-image: ''; border: 1px solid black ;"
         )
     def numberLeaveEvent1(self,event):
         self.ui.membershipBtn.setStyleSheet(
-            "font: 18pt \"맑은 고딕\"; border-image: '';"
+            "font: 18pt \"맑은 고딕\"; border-image: ''; border: 1px solid black ;"
         )
     def numberLeaveEvent2(self,event):
         self.ui.loginBtn.setStyleSheet(
-            "font:18pt \"맑은 고딕\"; border-image: ''; background-color: #424242; color:white ;"
+            "font:18pt \"맑은 고딕\"; border-image: ''; background-color: #424242; color:white ; border: 1px solid black ;"
         )
 
 
@@ -60,22 +63,24 @@ class Main:
         self.idResult = self.db.read("user",["id"],[self.idValue])
         self.pwResult = self.db.read("user",["pw"],[self.pwValue])
         if len(self.idResult) == 0 and len(self.pwResult) == 0:
-            self.window = Setting.Setting()
+            self.window = Config.Alert()
             self.window.message.setText("ID와 PW를 확인해주세요")
             self.window.result.show()
 
         elif len(self.idResult) == 0:
-            self.window = Setting.Setting()
+            self.window = Config.Alert()
             self.window.message.setText("ID를 확인해주세요")
             self.window.result.show()
 
         elif len(self.pwResult) == 0:
-            self.window = Setting.Setting()
+            self.window = Config.Alert()
             self.window.message.setText("PW를 확인해주세요")
             self.window.result.show()
 
         else:
-            self.playList = PlayList.PlayList(self.ui,self.db,main)
+            self.memberInfo = MemberInfo.MemberInfo(self.ui,self.db,main)
+            self.playListPage = PlayListPage.PlayListPage(self.ui,self.db)
+            self.youTube = Youtube.Youtube(self.ui)
             self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 7)
             self.ui.memberId.setText(self.idValue)
             self.ui.memberId.setAlignment(QtCore.Qt.AlignCenter)
@@ -89,7 +94,7 @@ class Main:
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 4)
 
     def membership_btn(self):
-        self.memberShip = MemberShip.MemberShip(self.ui,self.db)
+        self.memberShip = SignUp.SignUp(self.ui,self.db)
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 1)
 
 

@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-# import MakeUi
-# import MyDb
+import Config
 
 class PwFinding:
     def __init__(self,revui,revdb):
@@ -21,14 +20,9 @@ class PwFinding:
         self.recvPhonenum = self.db.read("userinformation",["phonenum"],[phonenumInput])
 
         if  len(self.idInput) == 0 or len(phonenumInput) == 0 or len(self.recvId) == 0 or len(self.recvPhonenum) == 0:
-            self.result = QtWidgets.QDialog()
-            self.result.resize(200,50)
-            self.message = QtWidgets.QLabel(self.result)
-            self.message.resize(200,50)
-            self.message.move(0,0)
-            self.message.setText("아이디와 전화번호를 확인해주세요")
-            self.message.setAlignment(QtCore.Qt.AlignCenter)
-            self.result.show()
+            self.window = Config.Alert()
+            self.window.message.setText("아이디와 전화번호를 확인해주세요")
+            self.window.result.show()
 
         elif self.recvId[0][0] == self.recvPhonenum[0][0] :           
             self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 5)
@@ -41,14 +35,9 @@ class PwFinding:
         self.newpwInput = self.ui.newpwrealinputlabel.text()             #버튼을 누른 후에 새로운 비밀번호 데이터를 가져와야 입력이 됨. 
         self.db.update("user",["pw"],[self.newpwInput],["id"],[self.idInput])
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage)
-        self.result = QtWidgets.QDialog()
-        self.result.resize(200,50)
-        self.message = QtWidgets.QLabel(self.result) 
-        self.message.resize(200,50)
-        self.message.move(0,0)
-        self.message.setText("새 비밀번호로 변경되었습니다")
-        self.message.setAlignment(QtCore.Qt.AlignCenter)
-        self.result.show()
+        self.window = Config.Alert()
+        self.window.message.setText("새 비밀번호로 변경되었습니다")
+        self.window.result.show()
 
     def goback_btn(self):
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage)
