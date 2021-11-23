@@ -1,3 +1,4 @@
+from sqlite3.dbapi2 import Error
 from pytchat import LiveChat            #검색창에 주소자체를 넣음 
 import pafy
 import pandas as pd
@@ -14,13 +15,16 @@ import sys
 class Youtube:
     def __init__(self,revui):
         self.ui = revui
+        self.resultThumnailList = []
         self.resultTitleList = []
         self.resultAuthorList = []
         self.resultViewList = []
-        self.input = self.ui.mainInputWindow.text()
-        self.ui.searchBtn.clicked.connect(self.init_event)
+        # self.input = self.ui.mainInputWindow.text()
+        self.ui.searchBtn.clicked.connect(self.init_event)     #이벤트가 실행된 후에 텍스트 실행되게해야 함
+        # self.index=0
 
     def init_event(self):
+        self.input = self.ui.mainInputWindow.text()
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 8)
         videoList = []
         DEVELOPER_KEY = "AIzaSyCAUDHrRl61GHr-14y2KHFndFANXsxdcso"
@@ -31,7 +35,7 @@ class Youtube:
         q = self.input,
         order = "relevance",
         part = "snippet",
-        maxResults = 8
+        maxResults = 12
         ).execute()
         # print(search_response)
         for item in search_response['items']:
@@ -44,41 +48,47 @@ class Youtube:
                 title = v.title
                 author = v.author
                 viewCount = v.viewcount
+                thumbnail = v.thumb
+
+                # self.index = self.index + 1
+                # print(self.index)
+                self.resultThumnailList.append(thumbnail)
                 self.resultTitleList.append(title)
                 self.resultAuthorList.append(author)
                 self.resultViewList.append(viewCount)
-        
-            except KeyError:
+
+            except (KeyError,ValueError,TypeError,OSError,Error):
                 pass
         self.video_view()
         
     def video_view(self):
         for index in range(0,5):
-            self.ui.videoTitleList.setText(self.resultTitleList[index])
-            self.ui.videoAuthorList.setText(self.resultAuthorList[index])
+            self.ui.videoTitleList[index].setText(self.resultTitleList[index])
+            self.ui.videoAuthorList[index].setText(self.resultAuthorList[index])
+            print(self.resultViewList[index])
+            self.ui.videoThumbnailList[index].setStyleSheet("border: 1px solid black; border-image:" + str(self.resultViewList[index]) + ";")
 
-# if __name__ == '__main__':
-#         youtube = Youtube()
 
-class MyThread(threading.Thread, QtCore.QObject): 
-    resultSignal = QtCore.pyqtSignal(str)   
-    def __init__(self, revui):
-        threading.Thread.__init__(self)
-        QtCore.QObject.__init__(self)
 
-    def run(self):
-        for video in videoList:
-            try:
-                v = pafy.new(video)
-                title = v.title
-                author = v.author
-                viewCount = v.viewcount
-                self.resultTitleList.append(title)
-                self.resultAuthorList.append(author)
-                self.resultViewList.append(viewCount)
+# class MyThread(threading.Thread, QtCore.QObject): 
+#     resultSignal = QtCore.pyqtSignal(str)   
+#     def __init__(self, revui):
+#         threading.Thread.__init__(self)
+#         QtCore.QObject.__init__(self)
+
+#     def run(self):
+#         for video in videoList:
+#             try:
+#                 v = pafy.new(video)
+#                 title = v.title
+#                 author = v.author
+#                 viewCount = v.viewcount
+#                 self.resultTitleList.append(title)
+#                 self.resultAuthorList.append(author)
+#                 self.resultViewList.append(viewCount)
         
-            except KeyError:
-                pass
+#             except KeyError:
+#                 pass
 
 
 # if __name__ == '__main__':

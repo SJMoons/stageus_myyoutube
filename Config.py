@@ -23,7 +23,7 @@ class Warning:
         self.message.setAlignment(QtCore.Qt.AlignCenter)
 
         self.confirm = QtWidgets.QPushButton(self.result)  #매개변수를 받아서
-        self.confirm.setGeometry(100,50,100,20)
+        self.confirm.setGeometry(103,50,100,20)
         self.confirm.setStyleSheet("font:8pt \"맑은 고딕\";")
         self.confirm.setText("확인")
         # self.confirm.clicked.connect(self.py.memberdelete_btn)

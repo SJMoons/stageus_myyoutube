@@ -37,7 +37,6 @@ class MemberInfo:     #클래스 나누기
         self.window.result.show()
 
     def memberdelete_btn(self):
-        print("1")
         self.db.delete("userinformation", ["id"], [self.main.idValue])
         self.db.delete("user",["id"], [self.main.idValue])
         self.window = Config.Alert()

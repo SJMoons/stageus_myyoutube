@@ -361,22 +361,16 @@ class MakeUi:
         self.searchBtn.setStyleSheet("border-image: url(image/readingglass.jpeg); border: 2px solid black;")
 
         #재생목록박스
-        self.playlistBox = QtWidgets.QTextBrowser(self.playListPage)
-        self.playlistBox.setGeometry(500, 200, 900, 65)
-        self.playlistBox.setStyleSheet("border:1px solid black; background-color:grey;")
+        
+        self.scrollArea = QtWidgets.QScrollArea(self.playListPage)
+        self.scrollArea.setGeometry(480,200,1050,600)
+        # self.scrollArea.setWidgetResizable(False)
+        self.scrollAreaWidgetContents = QtWidgets.QWidget(self.scrollArea)
+        self.scrollAreaWidgetContents.setGeometry(900,65,900,900)
 
-        self.playtrashBtnList = []
-        for index in range(0,2):
-            playtrashBtn = QtWidgets.QPushButton(self.playListPage)
-            xPos = 1300 + (index*50)
-            if index == 0:
-                playtrashBtn.setGeometry(xPos,215,40,40)
-                playtrashBtn.setStyleSheet("border-image: url(image/playbutton.jpg);")
-            if index == 1:
-                playtrashBtn.setGeometry(xPos,215,40,40)
-                playtrashBtn.setStyleSheet("border-image: url(image/trashcanbutton.png);")
-
-
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout.addStretch()
+        
         self.stackedWidget.addWidget(self.playListPage)
 
         #영상검색 페이지 8
@@ -396,10 +390,18 @@ class MakeUi:
         self.gobackbutton5.setText("뒤로 가기")
 
         #검색시 나오는 상위 5개
+        self.videoThumbnailList = []
+        for index in range(0,5):
+            ThumbnailBox = QtWidgets.QLabel(self.searchingPage)
+            yPos = 170 + (index*130)
+            ThumbnailBox.setGeometry(660,yPos,200,121)
+            
+            self.videoThumbnailList.append(ThumbnailBox)
+
         self.videoBoxList = []
         for index in range(0,5):
             videoBox = QtWidgets.QLabel(self.searchingPage)
-            yPos = 170 + (index*300)
+            yPos = 170 + (index*130)
             videoBox.setGeometry(660,yPos,681,121)
             videoBox.setStyleSheet("border: 1px solid black;")
             self.videoBoxList.append(videoBox)
@@ -407,16 +409,16 @@ class MakeUi:
         self.videoTitleList = []
         for index in range(0,5):
             videoTitle = QtWidgets.QLabel(self.searchingPage)
-            yPos = 170 + (index*300)
-            videoTitle.setGeometry(930,yPos,391,41)
+            yPos = 170 + (index*130)
+            videoTitle.setGeometry(930,yPos,391,25)
             videoTitle.setStyleSheet("border: '';")
             self.videoTitleList.append(videoTitle)
 
         self.videoAuthorList = []
         for index in range(0,5):
             videoAuthor = QtWidgets.QLabel(self.searchingPage)
-            yPos = 230 + (index*300)
-            videoAuthor.setGeometry(930,yPos,241,31)
+            yPos = 230 + (index*130)
+            videoAuthor.setGeometry(930,yPos,241,25)
             videoAuthor.setStyleSheet("border:'';")
             self.videoAuthorList.append(videoAuthor)
     
