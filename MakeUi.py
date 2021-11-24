@@ -370,7 +370,7 @@ class MakeUi:
 
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.addStretch()
-        
+
         self.stackedWidget.addWidget(self.playListPage)
 
         #영상검색 페이지 8
@@ -390,14 +390,6 @@ class MakeUi:
         self.gobackbutton5.setText("뒤로 가기")
 
         #검색시 나오는 상위 5개
-        self.videoThumbnailList = []
-        for index in range(0,5):
-            ThumbnailBox = QtWidgets.QLabel(self.searchingPage)
-            yPos = 170 + (index*130)
-            ThumbnailBox.setGeometry(660,yPos,200,121)
-            
-            self.videoThumbnailList.append(ThumbnailBox)
-
         self.videoBoxList = []
         for index in range(0,5):
             videoBox = QtWidgets.QLabel(self.searchingPage)
@@ -406,25 +398,41 @@ class MakeUi:
             videoBox.setStyleSheet("border: 1px solid black;")
             self.videoBoxList.append(videoBox)
 
+        self.videoThumbnailList = []
+        for index in range(0,5):
+            ThumbnailBox = QtWidgets.QLabel(self.searchingPage)
+            yPos = 170 + (index*130)
+            ThumbnailBox.setGeometry(660,yPos,200,121)
+            
+            self.videoThumbnailList.append(ThumbnailBox)
+
+        self.videoAddBtnList = []
+        for index in range(0,5):
+            addBtn = QtWidgets.QPushButton(self.searchingPage)
+            yPos = 260 + (index*130)
+            addBtn.setGeometry(1300,yPos,30,30)
+            addBtn.setStyleSheet("border: 1px solid black; border-image: url(image/plusbutton.PNG);")
+            self.videoAddBtnList.append(addBtn)
+
         self.videoTitleList = []
         for index in range(0,5):
             videoTitle = QtWidgets.QLabel(self.searchingPage)
-            yPos = 170 + (index*130)
+            yPos = 175 + (index*130)
             videoTitle.setGeometry(930,yPos,391,25)
-            videoTitle.setStyleSheet("border: '';")
+            videoTitle.setStyleSheet("border: ''; font:16pt \"맑은 고딕\";")
             self.videoTitleList.append(videoTitle)
 
         self.videoAuthorList = []
         for index in range(0,5):
             videoAuthor = QtWidgets.QLabel(self.searchingPage)
-            yPos = 230 + (index*130)
+            yPos = 235 + (index*130)
             videoAuthor.setGeometry(930,yPos,241,25)
-            videoAuthor.setStyleSheet("border:'';")
+            videoAuthor.setStyleSheet("border:''; font:16pt \"맑은 고딕\";")
             self.videoAuthorList.append(videoAuthor)
     
         self.stackedWidget.addWidget(self.searchingPage)
 
-        # 동영상 재생 페이지
+        # 동영상 재생 페이지 9
         self.videoPlayPage = QtWidgets.QWidget()
 
         self.mainInputWindow3 = QtWidgets.QLineEdit(self.videoPlayPage)

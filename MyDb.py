@@ -27,7 +27,6 @@ class MyDb:
         self.sql += ");"
         self.cur.execute(self.sql)
         self.conn.commit()
-        # VALUES('" + id + "', '" + pw + "');
 
     def delete(self, table,  column, data):
         self.sql = "DELETE FROM "+ table + " WHERE "

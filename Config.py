@@ -56,3 +56,19 @@ class Exception:
         self.koreanList = ['ㅂ','ㅈ','ㄷ','ㄱ','ㅅ','ㅛ','ㅕ,''ㅑ','ㅐ','ㅔ','ㅁ','ㄴ','ㅇ','ㄹ','ㅎ','ㅗ','ㅓ','ㅏ','ㅣ','ㅋ','ㅌ','ㅊ','ㅍ','ㅠ','ㅜ','ㅡ','ㅃ','ㅉ','ㄸ','ㄲ','ㅆ','ㅒ','ㅖ']
 
 
+class List:
+    def __init__(self):
+        self.result = QtWidgets.QDialog()
+        self.result.resize(300,100)
+        self.message = QtWidgets.QLabel(self.result) 
+        self.message.resize(100,20)
+        self.message.move(110,0)
+        self.message.setStyleSheet("font:13pt \"맑은 고딕\";")
+        self.message.setText("목록선택")
+        self.comboBox = QtWidgets.QComboBox(self.result)
+        self.comboBox.move(50,30)
+        self.comboBox.resize(200,30)
+        self.confirmBtn = QtWidgets.QPushButton(self.result)
+        self.confirmBtn.resize(100,30)
+        self.confirmBtn.move(95,65)
+        self.confirmBtn.setText("확인")
