@@ -89,8 +89,8 @@ class PlayListPage:
             self.ui.scrollArea.setWidget(self.ui.scrollAreaWidgetContents)
             for index in range(0,self.num - self.listLenth):
                 self.trashBtnList2[index].mousePressEvent = lambda event, num = index : self.delete_event2(event, num)
-            for index in range(0,self.num - self.listLenth):
-                self.playBtnList2[index].mousePressEvent = lambda event, num = index : self.video_play(event, num)
+            for index2 in range(0,self.num - self.listLenth):
+                self.playBtnList2[index2].mousePressEvent = lambda event, num = index : self.video_play(event, num)
 
     def delete_event(self, event, index):
         if self.numCheckValue == 0:
@@ -100,11 +100,13 @@ class PlayListPage:
             self.ui.scrollAreaWidgetContents.setGeometry(0,0,1025,60+((self.num)*60))
             self.numCheckValue += 1
             self.db.delete("playlist", ["playlist"], [self.list[index].text()])
+            self.db.delete("playlistvideo",["playlist"],[self.list[index].text()])
         else:
             self.num -= 1
             self.list[index].deleteLater()
             self.ui.scrollAreaWidgetContents.setGeometry(0,0,1025,60+((self.num)*60))
             self.db.delete("playlist", ["playlist"], [self.list[index].text()])
+            self.db.delete("playlistvideo",["playlist"],[self.list[index].text()])
 
 
     def delete_event2(self, event, index):
@@ -119,11 +121,13 @@ class PlayListPage:
             self.ui.scrollAreaWidgetContents.setGeometry(0,0,1025,60+((self.num)*60))
             self.numCheckValue2 += 1
             self.db.delete("playlist", ["playlist"], [self.list2[index].text()])
+            self.db.delete("playlistvideo", ["playlist"], [self.list2[index].text()])
         else:
             self.num -= 1
             self.list2[index].deleteLater()
             self.ui.scrollAreaWidgetContents.setGeometry(0,0,1025,60+((self.num)*60))
             self.db.delete("playlist", ["playlist"], [self.list2[index].text()])
+            self.db.delete("playlistvideo", ["playlist"], [self.list2[index].text()])
 
 
     def exist_playlist(self):
@@ -158,4 +162,31 @@ class PlayListPage:
                 break
 
     def video_play(self,event,index):
-        self.videoPlay = VideoPlay.VideoPlay(self.ui,self.db)
+        self.videoplay = VideoPlay.VideoPlay(self.ui,self.db,index,self.list,self.num)
+        
+
+            # self.videoPlay = VideoPlay.VideoPlay(self.ui,self.db)
+
+
+# if len(self.getPlayList) == 0:
+#             self.playListCount = 0
+#         else:
+#             self.playListCount = len(self.getPlayList)
+#             for index in range(0,self.playListCount):
+#                 self.scrollAreaWidgetContents.setGeometry(0,0,350,150+(self.playListCount*100))
+#                 label  = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+#                 label.setStyleSheet("border : 2px solid black;")
+#                 label.setMaximumHeight(100)
+#                 label.setMinimumHeight(100)
+#                 label.setMaximumWidth(300)
+#                 label.setMinimumWidth(300)
+#                 label.setText(self.getPlayList[index][1] + "\n"+"\n"+ self.getPlayList[index][2])
+#                 label.setAlignment(QtCore.Qt.AlignTop)
+#                 label.setAlignment(QtCore.Qt.AlignLeft)
+                
+#                 label.setStyleSheet("background-color : #D9D9D9;")
+#                 label.setFont(self.getFont.videopage_playlist)
+#                 self.playListList.append(label)
+
+#                 self.button_play_playlist = QtWidgets.QPushButton(label)
+#                 self.button_play_playlist.setStyleSheet("border-image : url(Pic/Play.png);")

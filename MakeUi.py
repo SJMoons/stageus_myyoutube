@@ -444,12 +444,52 @@ class MakeUi:
         self.searchBtn3.setStyleSheet("border-image: url(image/readingglass.jpeg); border: 1px solid black solid black;")
 
         self.gobackbutton6 = QtWidgets.QPushButton(self.videoPlayPage)
-        self.gobackbutton6.setGeometry(50,700,151,71)
+        self.gobackbutton6.setGeometry(30,700,151,60)
         self.gobackbutton6.setStyleSheet("font: 18pt \"맑은 고딕\"; color: white; border-image: url(image/button.png);")
         self.gobackbutton6.setText("뒤로 가기")
 
-        
+        self.videoBtnList = []
+        for index in range(0,4):
+            videoBtn = QtWidgets.QPushButton(self.videoPlayPage)
+            xPos = 220 + (index*60)
+            videoBtn.setGeometry(xPos,700,50,50)
+            if index == 0:
+                videoBtn.setStyleSheet("border-image: url(image/playbutton.png); border: '';")
+                self.videoBtnList.append(videoBtn)
+            if index == 1:
+                videoBtn.setStyleSheet("border-image: url(image/soundbutton.png); border: '';")
+                self.videoBtnList.append(videoBtn)
+            if index == 2:
+                videoBtn.setStyleSheet("border-image: url(image/previousBtn.png); border: '';")
+                self.videoBtnList.append(videoBtn)
+            if index == 3:
+                videoBtn.setStyleSheet("border-image: url(image/afterBtn.png); border: '';")
+                self.videoBtnList.append(videoBtn)
+
+        self.randomrepeatBtnList = []
+        for index in range(0,2):
+            randomrepeatBtn = QtWidgets.QPushButton(self.videoPlayPage)
+            xPos = 465 + (index*60)
+            randomrepeatBtn.setGeometry(xPos,705,45,45)
+            if index == 0:
+                randomrepeatBtn.setStyleSheet("border-image: url(image/randombutton.png); border: '';")
+                self.randomrepeatBtnList.append(randomrepeatBtn)
+            if index == 1:
+                randomrepeatBtn.setStyleSheet("border-image: url(image/repeatbutton.png); border: '';")
+                self.randomrepeatBtnList.append(randomrepeatBtn)
+
+        self.scrollArea2 = QtWidgets.QScrollArea(self.videoPlayPage)
+        self.scrollArea2.setGeometry(1200,180,300,500)
+
+        self.scrollAreaWidgetContents2 = QtWidgets.QWidget(self.scrollArea2)
+        self.scrollAreaWidgetContents2.setGeometry(300,65,900,900)
+
+        self.verticalLayout2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents2)
+        self.verticalLayout2.addStretch()
+
         self.stackedWidget.addWidget(self.videoPlayPage)
+        
+   
         self.mainWindow.show()
 
         

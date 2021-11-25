@@ -81,6 +81,7 @@ class Main:
             self.memberInfo = MemberInfo.MemberInfo(self.ui,self.db,main)
             self.playListPage = PlayListPage.PlayListPage(self.ui,self.db)
             self.youTube = Youtube.Youtube(self.ui,self.db,self.playListPage)
+            self.config = Config.Label(self.ui)
             self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 7)
             self.ui.memberId.setText(self.idValue)
             self.ui.memberId.setAlignment(QtCore.Qt.AlignCenter)

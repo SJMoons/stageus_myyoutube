@@ -15,7 +15,6 @@ import sys
 
 class Youtube:
     def __init__(self,revui,revdb,revplaylist):
-        self.a=0
         self.ui = revui
         self.db = revdb
         self.playList = revplaylist
@@ -88,14 +87,15 @@ class Youtube:
         # numberReset = self.playList.num
         self.all = self.db.cur.execute("SELECT * FROM playlist;")
         self.allPlayList = self.all.fetchall()
+        self.a = 0
         while True:
-            
             print("playlist")
+            print(self.a)
             self.pList.append(self.allPlayList[self.playList.num-1][0])
             self.playList.num -= 1
             self.a+=1
             if self.playList.num == 0:
-                self.playList.num = a 
+                self.playList.num = self.a 
                 print(self.a)
                 break
         self.window = Config.List()

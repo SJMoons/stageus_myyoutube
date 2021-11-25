@@ -211,25 +211,139 @@
 #             pass
 
 # importing vlc module
+# import vlc
+# import time
+# # # importing pafy module
+# import pafy
+  
+# # url of the video
+# url = "https://www.youtube.com/watch?v=gUyCa6errBc"
+
+# video = pafy.new(url)
+# best = video.getbest()
+# playurl = best.url
+# Instance = vlc.Instance()
+# player = Instance.media_player_new()
+# Media = Instance.media_new(playurl)
+# Media.get_mrl()
+# player.set_media(Media)
+# player.play()
+
+# time.sleep(120)
+
+import sys
+
+import os.path
+
+from PyQt5.QtCore import Qt, QTimer
+
+from PyQt5.QtGui import QPalette, QColor
+
+from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
+    QVBoxLayout, QAction, QFileDialog, QApplication
+
 import vlc
-  
-# # importing pafy module
-import pafy
-  
-# url of the video
-url = "https://www.youtube.com/watch?v=vG2PNdI8axo"
-  
-# creating pafy object of the video
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Player(QMainWindow):
+
+
+    def __init__(self, master=None):
+
+        QMainWindow.__init__(self, master)
+
+        self.setWindowTitle("Media Player")
+
+        # creating a basic vlc instance
+
+        self.instance = vlc.Instance()
+
+        # creating an empty vlc media player
+
+        self.mediaplayer = self.instance.media_player_new()
+
+        self.isPaused = False
+
+
+
+         ##########video frame
+
+        self.videoframe = QFrame(self)
+
+        self.videoframe.setGeometry(QtCore.QRect(210, 70, 391, 291))
+
+        self.videoframe.setFrameShape(QtWidgets.QFrame.Box)
+
+        self.videoframe.setFrameShadow(QtWidgets.QFrame.Raised)
+
+        self.vboxlayout = QVBoxLayout()
+
+        self.vboxlayout.addWidget(self.videoframe)
+
+
+
+
+        ######### the vlc
+
+        self.filename='C:/Users/Kikomi/Pictures/Camera Roll/kk.mp4'
+
+        self.media = self.instance.media_new(self.filename)
+
+        self.mediaplayer.set_media(self.media)
+
+        self.mediaplayer.play()
+
+if __name__ == "__main__":
+
+    app = QApplication(sys.argv)
+
+    player = Player()
+
+    player.show()
+
+    player.resize(640, 480)
+
+    if sys.argv[1:]:
+
+        player.OpenFile(sys.argv[1])
+
+    sys.exit(app.exec_())
+
+
+
+
 video = pafy.new(url)
+            best = video.getbest()
+            playurl = best.url
+            Instance = vlc.Instance()
+            player = Instance.media_player_new()x
+            Media = Instance.media_new(playurl)
+            Media.get_mrl()
+            player.set_media(Media)x
+            player.play()x
+
+self.vlc_instance = vlc.Instance()
+self.mediaplayer = self.vlc_instance.media_player_new()
+self.mediaplayer.set_hwnd(int(self.frame.winId()))
+self.media_path = "test_video.mp4"
+self.media = self.vlc_instance.media_new(self.media_path)
+self.media.get_mrl()
+self.mediaplayer.set_media(self.media)
+self.mediaplayer.play() 
+
+
+# creating pafy object of the video
+# video = pafy.new(url)
   
-# getting best stream
-best = video.getbest()
+# # getting best stream
+# best = video.getbest()
   
-# creating vlc media player object
-media = vlc.MediaPlayer(best.url)
+# # creating vlc media player object
+# media = vlc.MediaPlayer(best.url)
   
-# start playing video
-media.play()
+# # start playing video
+# media.play()
 
 # import pafy     #파이썬-vlc
  

@@ -3,49 +3,58 @@
 # import time
 # import threading
 # # media = vlc.MediaPlayer("News.mp4")
-# # media.play()
-import urllib.request
-from urllib import parse
+# # # media.play()
+# import urllib.request
+# from urllib import parse
 
-import requests
+# import requests
 
-input = "파이썬"
-params = {"search_query": input}
-querystring = parse.urlencode(params)
-print(querystring)
+# input = "파이썬"
+# params = {"search_query": input}
+# querystring = parse.urlencode(params)
+# print(querystring)
 
-parseResult = parse.urlparse("https://www.youtube.com/results" + "?" + querystring)
-print(parseResult)
-print(parseResult[4])
-# answer = "한글"
-# search = str(answer.encode("utf-8"))
-# print(search)
+# parseResult = parse.urlparse("https://www.youtube.com/results" + "?" + querystring)
+# print(parseResult)
+# print(parseResult[4])
+# # answer = "한글"
+# # search = str(answer.encode("utf-8"))
+# # print(search)
 
-url = "https://www.youtube.com/results" + "?" + querystring
-res = requests.get(url)
-# res.status_code       #200이 나오면 정상
-# print(res.status_code)
-# res.text
-# print(res.json())
-print(res.text)
+# url = "https://www.youtube.com/results" + "?" + querystring
+# res = requests.get(url)
+# # res.status_code       #200이 나오면 정상
+# # print(res.status_code)
+# # res.text
+# # print(res.json())
+# print(res.text)
 
-import pafy     #크롤링
+# import pafy     #크롤링
 
-url = "https://www.youtube.com/results" + "?" + querystring
-try:
-    v = pafy.new(url)
-except KeyError:
-    pass
-title = v.title
-author = v.author
-viewCount = v.viewcount
-print(viewCount)
-print(title)
-print(author)
-
-
+# url = "https://www.youtube.com/results" + "?" + querystring
+# try:
+#     v = pafy.new(url)
+# except KeyError:
+#     pass
+# title = v.title
+# author = v.author
+# viewCount = v.viewcount
+# print(viewCount)
+# print(title)
+# print(author)
 
 
+# self.videoframe = QFrame(self.ui.videoPlayPage)
+
+# self.videoframe.setGeometry(QtCore.QRect(210, 70, 391, 291))
+
+# self.videoframe.setFrameShape(QtWidgets.QFrame.Box)
+
+# self.videoframe.setFrameShadow(QtWidgets.QFrame.Raised)
+
+# self.vboxlayout = QVBoxLayout()
+
+# )
 
 # resp = urllib.request.urlopen(url)
 # print(resp.read())

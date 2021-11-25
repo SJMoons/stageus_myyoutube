@@ -72,3 +72,13 @@ class List:
         self.confirmBtn.resize(100,30)
         self.confirmBtn.move(95,65)
         self.confirmBtn.setText("확인")
+
+class Label:
+    def __init__(self,revui):
+        self.ui = revui
+        self.label = QtWidgets.QLabel(self.ui.scrollAreaWidgetContents2)
+        self.label.setStyleSheet("border:1px solid black; background-color: lightgrey; font:10pt \"맑은 고딕\" ;")
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setGeometry(0,0,300,50)
+        self.label.setMaximumHeight(50)
+        self.label.setMinimumHeight(50)
