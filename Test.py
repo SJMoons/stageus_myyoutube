@@ -313,24 +313,24 @@ if __name__ == "__main__":
 
 
 
-video = pafy.new(url)
-            best = video.getbest()
-            playurl = best.url
-            Instance = vlc.Instance()
-            player = Instance.media_player_new()x
-            Media = Instance.media_new(playurl)
-            Media.get_mrl()
-            player.set_media(Media)x
-            player.play()x
+# video = pafy.new(url)
+#             best = video.getbest()
+#             playurl = best.url
+#             Instance = vlc.Instance()
+#             player = Instance.media_player_new()x
+#             Media = Instance.media_new(playurl)
+#             Media.get_mrl()
+#             player.set_media(Media)x
+#             player.play()x
 
-self.vlc_instance = vlc.Instance()
-self.mediaplayer = self.vlc_instance.media_player_new()
-self.mediaplayer.set_hwnd(int(self.frame.winId()))
-self.media_path = "test_video.mp4"
-self.media = self.vlc_instance.media_new(self.media_path)
-self.media.get_mrl()
-self.mediaplayer.set_media(self.media)
-self.mediaplayer.play() 
+# self.vlc_instance = vlc.Instance()
+# self.mediaplayer = self.vlc_instance.media_player_new()
+# self.mediaplayer.set_hwnd(int(self.frame.winId()))
+# self.media_path = "test_video.mp4"
+# self.media = self.vlc_instance.media_new(self.media_path)
+# self.media.get_mrl()
+# self.mediaplayer.set_media(self.media)
+# self.mediaplayer.play() 
 
 
 # creating pafy object of the video

@@ -4,6 +4,7 @@ from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import QMainWindow, QWidget, QFrame, QSlider, QHBoxLayout, QPushButton, \
     QVBoxLayout, QAction, QFileDialog, QApplication
+from PyQt5.QtCore import QBasicTimer
 import sys
 import vlc
 import time
@@ -13,19 +14,20 @@ import PlayListPage
 
 class VideoPlay:
     def __init__(self,revui,revdb,index,list,num):
-        self.number = num
-        self.intermediateNum = 0
-        self.list = list
         self.ui = revui
         self.db = revdb
+        self.number = num
+        self.intermediateNum = 0
+        self.countNum = 0
+        self.list = list
         self.num = 0
         self.list2= []
-        length = 0
+        self.length = 0
         self.videoList = []
         self.videoList = self.db.read("playlistvideo",["playlist"],[self.list[index].text()])
         print(self.list[index].text())
         # videoself.list2 = self.db.read("playlistvideo",["playlist"],[self.self.list2[index2].text()])
-        length = len(self.videoList)
+        self.length = len(self.videoList)
         print(self.videoList)
         # print(len(self.videoList))
         if len(self.videoList) == 0:
@@ -35,12 +37,12 @@ class VideoPlay:
         else:
             while True:
                 print(self.list2)
-                print(length)
+                print(self.length)
                 self.ui.scrollAreaWidgetContents2.setGeometry(0,0,300,60+(self.number*70))
                 label = QtWidgets.QPushButton(self.ui.scrollAreaWidgetContents2)
                 label.setStyleSheet("border:1px solid black; background-color: lightgrey; font:10pt \"맑은 고딕\" ;")
-                label.setText(self.videoList[length-1][2])
-                # print(self.videoList[length-1][2])
+                label.setText(self.videoList[self.length-1][2])
+                # print(self.videoList[self.length-1][2])
                 # label.setAlignment(QtCore.Qt.AlignCenter)
                 label.setGeometry(0,0,300,50)
                 label.setMaximumHeight(50)
@@ -48,16 +50,14 @@ class VideoPlay:
 
                 self.list2.append(label)
                 self.ui.verticalLayout2.addWidget(self.list2[self.num])
-                length -= 1
+                self.length -= 1
                 self.num += 1
                 self.ui.scrollArea2.setWidget(self.ui.scrollAreaWidgetContents2)
-                if length == 0:
+                if self.length == 0:
+                    print(self.num)
                     # self.ui.verticalLayout2.deleteLater()
                     # self.list2.clear()
                     break   
-            
-
-
             
             self.Instance = vlc.Instance()
             self.mediaplayer = self.Instance.media_player_new()
@@ -71,6 +71,8 @@ class VideoPlay:
 
             self.videoframe.setGeometry(QtCore.QRect(200, 180, 1000, 500))
 
+            self.videoframe.setStyleSheet("border: '';")
+
             self.videoframe.setFrameShape(QtWidgets.QFrame.Box)
 
             self.videoframe.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -79,21 +81,21 @@ class VideoPlay:
 
             self.vboxlayout.addWidget(self.videoframe)
 
-            url = self.videoList[length-1][1]                                
-            video = pafy.new(url)
-            best = video.getbest()
+            url = self.videoList[self.length-1][1]                                
+            self.video = pafy.new(url)
+            best = self.video.getbest()
             playurl = best.url
             Media = self.Instance.media_new(playurl)
             Media.get_mrl()
             self.mediaplayer.set_media(Media)
 
             if sys.platform == "win32":  # for Windows
-                self.mediaplayer.set_hwnd(int(self.videoframe.winId()))
-
+                self.mediaplayer.set_hwnd(int(self.videoframe.winId())) 
             self.mediaplayer.play()
 
             self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 9)
         self.init_event()
+
 
     def init_event(self):
         self.ui.gobackbutton6.clicked.connect(self.goback_btn)
@@ -104,6 +106,28 @@ class VideoPlay:
         # while index >= 0:
             self.list2[index].mousePressEvent = lambda event, num = index : self.playlist_play(event,num)
             # index -= 1
+            # self.videonum = index
+        self.ui.videoBtnList[3].clicked.connect(self.next_video)
+
+    def next_video(self):
+        self.countNum -= 1
+        print(self.num+self.countNum)
+        if self.num+self.countNum < 0:
+            self.window = Config.Alert()
+            self.window.message.setText("다음영상이 없습니다.")
+            self.window.result.show()
+        else:
+            url = self.videoList[self.num+self.countNum][1]                                
+            video = pafy.new(url)
+            best = video.getbest()
+            playurl = best.url
+            Media = self.Instance.media_new(playurl)
+            Media.get_mrl()
+            self.mediaplayer.set_media(Media)
+            if sys.platform == "win32":  # for Windows
+                self.mediaplayer.set_hwnd(int(self.videoframe.winId())) 
+            self.mediaplayer.play()
+
 
     def playlist_play(self, event, index):
         url = self.videoList[index][1]

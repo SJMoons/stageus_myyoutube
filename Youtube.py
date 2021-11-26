@@ -8,9 +8,6 @@ from oauth2client.tools import argparser
 import urllib.request
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Config
-import PlayListPage
-import threading
-import time
 import sys
 
 class Youtube:
@@ -25,7 +22,7 @@ class Youtube:
         self.videoList = []
         self.pList = []
         self.init_event()
-        # self.input = self.ui.mainInputWindow.text()
+  
     def init_event(self):
         self.ui.searchBtn.clicked.connect(self.search_event)     #이벤트가 실행된 후에 텍스트 실행되게해야 함
         self.ui.gobackbutton5.clicked.connect(self.goback_btn)
@@ -46,7 +43,7 @@ class Youtube:
         part = "snippet",
         maxResults = 12
         ).execute()
-        # print(search_response)
+
         for item in search_response['items']:
             if item['id']['kind'] == 'youtube#video':
                self.videoList.append(item['id']['videoId'])
@@ -62,17 +59,12 @@ class Youtube:
                 self.resultTitleList.append(title)
                 self.resultAuthorList.append(author)
                 self.resultViewList.append(viewCount)
-
             except (KeyError,ValueError,TypeError,OSError,Error):
                 pass
+
         self.video_view()
         
     def video_view(self):
-        # print(self.resultThumnailList[0])
-        # print(self.resultThumnailList[1])
-        # print(self.resultThumnailList[2])
-        # print(self.resultThumnailList[3])
-        # print(self.resultThumnailList[4])
         for index in range(0,5):
             image = urllib.request.urlopen(self.resultThumnailList[index]).read()
             pixmap = QtGui.QPixmap()
@@ -84,7 +76,6 @@ class Youtube:
 
     def video_input(self, event, index):
         self.index = index
-        # numberReset = self.playList.num
         self.all = self.db.cur.execute("SELECT * FROM playlist;")
         self.allPlayList = self.all.fetchall()
         self.a = 0
@@ -104,7 +95,6 @@ class Youtube:
         self.window.confirmBtn.clicked.connect(self.video_confirm)
 
     def video_confirm(self):
-        print("hide")
         self.window.result.hide()
         self.pList = []
         self.db.create("playlistvideo",["playlist","video","title"],[self.window.comboBox.currentText(),"https://www.youtube.com/watch?v=" + self.videoList[self.index],self.resultTitleList[self.index]])
@@ -113,27 +103,4 @@ class Youtube:
         self.ui.stackedWidget.setCurrentIndex(self.ui.setpage + 7)
 
 
-# class MyThread(threading.Thread, QtCore.QObject): 
-#     resultSignal = QtCore.pyqtSignal(str)   
-#     def __init__(self, revui):
-#         threading.Thread.__init__(self)
-#         QtCore.QObject.__init__(self)
-
-#     def run(self):
-#         for video in videoList:
-#             try:
-#                 v = pafy.new(video)
-#                 title = v.title
-#                 author = v.author
-#                 viewCount = v.viewcount
-#                 self.resultTitleList.append(title)
-#                 self.resultAuthorList.append(author)
-#                 self.resultViewList.append(viewCount)
-        
-#             except KeyError:
-#                 pass
-
-
-# if __name__ == '__main__':
-#         youtube = YouTube()
 

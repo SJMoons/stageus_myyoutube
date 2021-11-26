@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
-
+#setPointSize
+#setPixelSize
 class MakeUi:
     def __init__(self):
         self.setpage = 0
@@ -29,7 +30,7 @@ class MakeUi:
 
         self.loginNameText = QtWidgets.QLabel(self.login)
         self.loginNameText.setGeometry(605,55,411,111)
-        self.loginNameText.setStyleSheet("font: 60pt \"맑은 고딕\";border: '';")
+        self.loginNameText.setStyleSheet("font:60pt \"맑은 고딕\";border: '';")
         self.loginNameText.setText("LOGIN")
         self.loginNameText.setAlignment(QtCore.Qt.AlignCenter)
 
@@ -99,7 +100,7 @@ class MakeUi:
         for index in range(0,5):
             membershipLabel = QtWidgets.QLabel(self.membership)
             yPos = 120 + (120*index)
-            membershipLabel.setGeometry(540,yPos,240,40)
+            membershipLabel.setGeometry(540,yPos,260,40)
             membershipLabel.setStyleSheet("font:14pt \"맑은 고딕\"; border: '';")
             membershipLabel.setText(nameList[index])
 
@@ -295,7 +296,7 @@ class MakeUi:
         for index in range(0,2):
             updateInformLabel = QtWidgets.QLabel(self.memberShipInfor)
             yPos = 240 + (110*index)
-            updateInformLabel.setGeometry(900,yPos,160,41)
+            updateInformLabel.setGeometry(900,yPos,200,41)
             updateInformLabel.setStyleSheet("font:17pt \"맑은 고딕\"; border:''; color: white; background-color:'';")
             updateInformLabel.setText(nameList[index])
 
@@ -477,6 +478,18 @@ class MakeUi:
             if index == 1:
                 randomrepeatBtn.setStyleSheet("border-image: url(image/repeatbutton.png); border: '';")
                 self.randomrepeatBtnList.append(randomrepeatBtn)
+
+        
+        self.pbar = QtWidgets.QProgressBar(self.videoPlayPage)
+        self.pbar.setGeometry(200, 180, 1000, 25)
+        self.pbar.setMinimum(0)
+        self.pbar.setMaximum(1000)
+
+        # self.timer = Qtwidgets.QBasicTimer()
+        # self.step = 0
+
+        # self.setWindowTitle('QProgressBar')
+        # self.setGeometry(300, 300, 300, 200)
 
         self.scrollArea2 = QtWidgets.QScrollArea(self.videoPlayPage)
         self.scrollArea2.setGeometry(1200,180,300,500)
