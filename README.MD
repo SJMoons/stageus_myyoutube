@@ -16,4 +16,20 @@ stageus
 
 [스테이지어스]{https://www.stageus.co.kr/}   #링크 대괄호 소괄호
 
-![이미지를 찾을 수 없습니다](https://www.stageus.co.kr/img/logoBlack.png)
+![이미지를 찾을 수 없습니다](https://www.stageus.co.kr/img/logoBlack.png)  #대괄호는 이미지가 없을때 뜨는 문구
+
+```python
+print("hello world")
+```
+
+```html
+<div>
+    <hl>stageus</hl>
+</div>
+```
+
+```text
+여기는 텍스트 공간
+```
+
+
